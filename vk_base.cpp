@@ -331,10 +331,14 @@ VulkanBase::Swapchain::Swapchain(VkDevice device,
   ASSERT_TRUE(formatIter != physicalDeviceProps.surfaceFormats.end());
   surfaceFormat = *formatIter;
 
+  std::vector<VkPresentModeKHR> presentModes = { VK_PRESENT_MODE_MAILBOX_KHR,
+                                                 VK_PRESENT_MODE_FIFO_KHR };
+
   auto presentModeIter =
-    std::find(physicalDeviceProps.presentModes.begin(),
-              physicalDeviceProps.presentModes.end(),
-              VkPresentModeKHR{ VK_PRESENT_MODE_MAILBOX_KHR });
+    std::find_first_of(physicalDeviceProps.presentModes.begin(),
+                       physicalDeviceProps.presentModes.end(),
+                       presentModes.begin(),
+                       presentModes.end());
 
   ASSERT_TRUE(presentModeIter != physicalDeviceProps.presentModes.end());
   presentMode = *presentModeIter;
