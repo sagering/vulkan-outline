@@ -1,4 +1,4 @@
 echo off
 mkdir build
-for %%x in (simple.vert simple.frag outline.vert outline.frag) do tools\glslangValidator.exe -V res\shaders\%%x -o build\%%x.spv"
+for %%x in (pre.vert pre.frag post.vert post.frag) do tools\glslangValidator.exe -V res\shaders\%%x -o build\%%x.spv"
 pause

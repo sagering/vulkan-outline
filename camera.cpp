@@ -91,6 +91,7 @@ Camera::UpdateView()
   view[3][1] = -t1.y;
   view[3][2] = -t1.z;
   view[3][3] = 1.f;
+  view[1][1] *= -1.f;
 }
 
 void

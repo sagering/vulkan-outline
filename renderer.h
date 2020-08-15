@@ -9,7 +9,6 @@
 struct Vertex
 {
   glm::vec3 pos;
-  glm::vec2 uv;
 
   static VkVertexInputBindingDescription GetBindingDescription()
   {
@@ -24,18 +23,12 @@ struct Vertex
   static std::vector<VkVertexInputAttributeDescription>
   GetAttributeDescriptions()
   {
-    std::vector<VkVertexInputAttributeDescription> attributeDescriptions(2);
+    std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
 
     attributeDescriptions[0].binding = 0;
     attributeDescriptions[0].location = 0;
     attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
     attributeDescriptions[0].offset = offsetof(Vertex, pos);
-
-    attributeDescriptions[1].binding = 0;
-    attributeDescriptions[1].location = 1;
-    attributeDescriptions[1].format = VK_FORMAT_R32G32_SFLOAT;
-    attributeDescriptions[1].offset = offsetof(Vertex, uv);
-
     return attributeDescriptions;
   }
 };
@@ -46,18 +39,11 @@ public:
   Renderer(VulkanWindow* window);
   ~Renderer();
 
-  struct Ripple {
-	  glm::vec3 origin;
-	  float t;
-	  float speed;
-	  float amplitude;
-	  float tdecay; // temporal decay
-	  float sdecay; // spatial decay
-  };
-
-  struct Ubo {
-	  glm::mat4 vp;
-	  Ripple ripple[10];
+  struct Ubo
+  {
+    glm::mat4 vp;
+    glm::mat4 m;
+	glm::ivec2 res;
   };
 
   void drawFrame(const Ubo&);
@@ -65,27 +51,19 @@ public:
 private:
   virtual void OnSwapchainReinitialized();
 
-  GraphicsPipeline* outlinePipeline;
-  VkShaderModule outlineVertexShader;
-  VkShaderModule outlineFragmentShader;
+  GraphicsPipeline* postPipeline;
+  VkShaderModule postVertexShader;
+  VkShaderModule postFragmentShader;
 
-  GraphicsPipeline* pipeline;
-  VkShaderModule vertexShaderModule;
-  VkShaderModule fragmentShaderModule;
+  GraphicsPipeline* prePipeline;
+  VkShaderModule preVertexShader;
+  VkShaderModule preFragmentShader;
 
   VkBuffer vertexBuffer;
   VkDeviceMemory vertexBufferMemory;
-  VkDeviceSize vertexCount;
-  VkDeviceSize vertexBufferOffset;
-
-  VkImage texture;
-  VkImageView textureView;
-  VkDeviceMemory textureMemory;
-  VkSampler textureSampler;
 
   VkDescriptorPool descriptorPool;
   VkDescriptorSet descriptorSet;
-
 
   VkBuffer ubo;
   VkDeviceMemory uboMemory;
@@ -93,16 +71,6 @@ private:
   void recordCommandBuffer(uint32_t idx);
 
 private:
-  void initialize();
-  void createDescriptorPool();
-  void destroyDescriptorPool();
-
-  void createPipeline();
-  void destroyPipeline();
-
-  void createDescriptorSets();
-  void destroyDescriptorSets();
-
-  void createBuffersAndSamplers();
-  void destroyBuffersAndSamplers();
+  void createResources();
+  void destroyResources();
 };

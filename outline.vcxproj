@@ -200,6 +200,7 @@ call compile_shaders.bat</Command>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="clock.h" />
+    <ClInclude Include="data.h" />
     <ClInclude Include="graphics_pipeline.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="renderer.h" />
@@ -211,6 +212,7 @@ call compile_shaders.bat</Command>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="clock.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="graphics_pipeline.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />

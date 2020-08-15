@@ -77,6 +77,12 @@ struct VulkanBase
 
   Swapchain* swapchain;
 
+  VkImage colorImage = VK_NULL_HANDLE;
+  VkImageView colorImageView = VK_NULL_HANDLE;
+  VkDeviceMemory colorImageMemory = VK_NULL_HANDLE;
+
+  VkSampler colorImageSampler = VK_NULL_HANDLE;
+
   VkImage depthImage = VK_NULL_HANDLE;
   VkImageView depthImageView = VK_NULL_HANDLE;
   VkDeviceMemory depthImageMemory = {};
@@ -84,8 +90,11 @@ struct VulkanBase
   VkSemaphore imageAvailableSemaphore = VK_NULL_HANDLE;
   VkSemaphore renderFinishedSemaphore = VK_NULL_HANDLE;
 
-  VkRenderPass renderPass = VK_NULL_HANDLE;
-  std::vector<VkFramebuffer> framebuffers = {};
+  VkRenderPass renderPassPre = VK_NULL_HANDLE;
+  VkRenderPass renderPassPost = VK_NULL_HANDLE;
+
+  std::vector<VkFramebuffer> framebuffersPost = {};
+  VkFramebuffer framebufferPre = VK_NULL_HANDLE;
 
   std::vector<VkCommandBuffer> commandBuffers = {};
   std::vector<VkFence> fences = {};
