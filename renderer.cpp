@@ -90,7 +90,7 @@ Renderer::createResources()
             { swapchain->imageExtent.width, swapchain->imageExtent.height } } })
       .SetColorBlendAttachments({ colorBlendAttachment })
       .SetDepthWriteEnable(VK_TRUE)
-      .SetDepthTestEnable(VK_FALSE)
+      .SetDepthTestEnable(VK_TRUE)
       .SetRenderPass(renderPassPre)
       .Build();
 
