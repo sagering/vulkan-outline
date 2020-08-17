@@ -245,7 +245,7 @@ Renderer::recordCommandBuffer(uint32_t idx)
 
   // prepass
   {
-    VkClearValue clearValues[] = { { 0.0f, 0.0f, 0.0f, 1.0f }, { 1.f, 0 } };
+    VkClearValue clearValues[] = { { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.f, 0 } };
 
     VkRenderPassBeginInfo renderPassInfo =
       vkiRenderPassBeginInfo(renderPassPre,
